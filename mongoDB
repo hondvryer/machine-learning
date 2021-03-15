@@ -1,0 +1,56 @@
+DB select
+var authColl = db.getCollection("auth")
+
+authColl.insertOne(
+   {
+       usrName : "John Doe",
+       usrDept : "Sales",
+       usrTitle : "Executive Account Manager",
+       authLevel : 4,
+       authDept : [ "Sales", "Customers"]
+   }
+)
+
+#############################################
+
+DB insert
+db.auth.insertOne(
+   {
+       usrName : "John Doe",
+       usrDept : "Sales",
+       usrTitle : "Executive Account Manager",
+       authLevel : 4,
+       authDept : [ "Sales", "Customers"]
+   }
+)
+
+#############################################
+
+Contains DB operator
+
+db.getCollection("auth").find({"name": /.*m.*/})
+or, similar:
+
+db.getCollection("auth").find({"name": /m/})
+You're looking for something that contains "m" somewhere (SQL's '%' operator is equivalent to Regexp's '.*'), not something that has "m" anchored to the beginning of the string.
+
+#############################################
+
+AND in MongoDB
+db.getCollection("auth").find( { $and: [ { usrName: "John Doe" }, { usrDept: /.*Sale.*/ } ] } )
+
+#############################################
+
+UPDATE MongoDB
+db.getCollection('auth').update(
+   { usrName: "John Doe" },
+   {
+     usrName: "John Doe",
+     usrDept: "HR"
+   },
+   { }
+)
+#############################################
+
+
+
